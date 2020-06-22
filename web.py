@@ -1,5 +1,6 @@
 import socket
-
+import os
+dirname = os.path.dirname(__file__)
 HOST, PORT = '127.0.0.1', 8082
 
 my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -22,8 +23,7 @@ while True:
     myfile = requesting_file.split('?')[0]  # After the "?" symbol not relevent here
     myfile = myfile.lstrip('/')
     if (myfile == ''):
-        myfile = 'index.html'  # Load index file as default
-
+        myfile = os.path.join(dirname,'index.html')  # Load index file as default
     try:
         file = open(myfile, 'rb')  # open file , r => read , b => byte format
         response = file.read()
@@ -42,8 +42,7 @@ while True:
 
     except Exception as e:
         header = 'HTTP/1.1 404 Not Found\n\n'
-        response = '<html><body><center><h3>Error 404: File not foundssss</h3><p>Python HTTP Server</p></center></body></html>'.encode(
-            'utf-8')
+        response = '<html><body><center><h3>Error 404: File not foundssss</h3><p>Python HTTP Server</p></center></body></html>'.encode('utf-8')
 
     final_response = header.encode('utf-8')
     final_response += response
