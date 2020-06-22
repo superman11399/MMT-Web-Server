@@ -22,7 +22,9 @@ while True:
 
     myfile = requesting_file.split('?')[0]  # After the "?" symbol not relevent here
     myfile = myfile.lstrip('/')
-    if (myfile == ''):
+    if (myfile == 'img_avatar2.png'):
+        myfile = os.path.join(dirname, 'img_avatar2.png')  # Load index file as default
+    elif (myfile == ''):
         myfile = os.path.join(dirname,'index.html')  # Load index file as default
     try:
         file = open(myfile, 'rb')  # open file , r => read , b => byte format
