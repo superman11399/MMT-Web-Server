@@ -24,6 +24,7 @@ while True:
     myfile = myfile.lstrip('/')
     if (myfile == 'img_avatar2.png'):
         myfile = os.path.join(dirname, 'img_avatar2.png')  # Load index file as default
+
     elif (myfile == ''):
         myfile = os.path.join(dirname,'index.html')  # Load index file as default
     try:
@@ -35,6 +36,8 @@ while True:
 
         if (myfile.endswith(".jpg")):
             mimetype = 'image/jpg'
+        elif (myfile.endswith(".png")):
+            mimetype = 'image/png'
         elif (myfile.endswith(".css")):
             mimetype = 'text/css'
         else:
