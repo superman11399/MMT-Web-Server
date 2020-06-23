@@ -16,8 +16,9 @@ while True:
     string_list = request.split(' ')  # Split request from spaces
 
     method = string_list[0]
+    print(method)
     requesting_file = string_list[1]
-
+    print(requesting_file)
 
     # print('Client request ', requesting_file)
 
@@ -47,6 +48,8 @@ while True:
             mimetype = 'image/jpg'
         elif (myfile.endswith(".css")):
             mimetype = 'text/css'
+        elif (myfile.endswith(".png")):
+            mimetype = 'image/png'
         else:
             mimetype = 'text/html'
 
