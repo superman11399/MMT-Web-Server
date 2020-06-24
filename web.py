@@ -1,4 +1,6 @@
 import socket
+import os
+dirname = os.path.dirname(__file__)
 
 HOST, PORT = '127.0.0.1', 8082
 
@@ -16,9 +18,9 @@ while True:
     string_list = request.split(' ')  # Split request from spaces
 
     method = string_list[0]
-    print(method)
+    #print(method)
     requesting_file = string_list[1]
-    print(requesting_file)
+    #print(requesting_file)
 
     # print('Client request ', requesting_file)
 
@@ -26,8 +28,9 @@ while True:
     myfile = myfile.lstrip('/')
 
     if (myfile == ''):
-        myfile = 'index.html'  # Load index file as default
-
+        myfile = os.path.join(dirname,'index.html')   # Load index file as default
+    else:
+         myfile = os.path.join(dirname,myfile)
     try:
         if (request.find("uname") > 0):
             x = request.split("uname=")
@@ -35,9 +38,9 @@ while True:
             user = name[0]
             pwd = name[1].split('=')[1]
             if (user == 'admin' and pwd == 'admin'):
-                myfile = 'info.html'
+                myfile = os.path.join(dirname,'info.html')
             else:
-                myfile='404.html'
+                myfile = os.path.join(dirname,'404.html')
         file = open(myfile, 'rb')  # open file , r => read , b => byte format
         response = file.read()
         file.close()
