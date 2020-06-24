@@ -7,7 +7,7 @@ HOST, PORT = '127.0.0.1', 8082
 my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 my_socket.bind((HOST, PORT))
-my_socket.listen(1)
+my_socket.listen(2)
 
 print('Serving on port ', PORT)
 
@@ -17,35 +17,33 @@ while True:
     print(request)
     string_list = request.split(' ')  # Split request from spaces
 
-    method = string_list[0]
-    #print(method)
-    requesting_file = string_list[1]
-    #print(requesting_file)
-
-    # print('Client request ', requesting_file)
-
-    myfile = requesting_file.split('?')[0]  # After the "?" symbol not relevent here
-    myfile = myfile.lstrip('/')
-
-    if (myfile == ''):
-        myfile = os.path.join(dirname,'index.html')   # Load index file as default
-    else:
-         myfile = os.path.join(dirname,myfile)
     try:
+        method = string_list[0]
+        requesting_file = string_list[1]
+        # print('Client request ', requesting_file)
+
+        myfile = requesting_file.split('?')[0]  # After the "?" symbol not relevent here
+        myfile = myfile.lstrip('/')
+
+        if (myfile == ''):
+            myfile = os.path.join(dirname, 'index.html')  # Load index file as default
+        else:
+            myfile = os.path.join(dirname, myfile)
+        header = 'HTTP/1.1 200 OK\n'
         if (request.find("uname") > 0):
             x = request.split("uname=")
             name = x[1].split('&')
             user = name[0]
             pwd = name[1].split('=')[1]
             if (user == 'admin' and pwd == 'admin'):
-                myfile = os.path.join(dirname,'info.html')
+                header = 'HTTP/1.1 301 Moved Permanently\nLocation: http://127.0.0.1:8082/info.html\n'
+                myfile = os.path.join(dirname, 'info.html')
             else:
+                header = 'HTTP/1.1 301 Moved Permanently\nLocation: http://127.0.0.1:8082/404.html\n'
                 myfile = os.path.join(dirname,'404.html')
         file = open(myfile, 'rb')  # open file , r => read , b => byte format
         response = file.read()
         file.close()
-
-        header = 'HTTP/1.1 200 OK\n'
 
         if (myfile.endswith(".jpg")):
             mimetype = 'image/jpg'
