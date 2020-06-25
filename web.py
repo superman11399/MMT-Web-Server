@@ -37,10 +37,10 @@ while True:
                 user = name[0]                  #get username on POST request
                 pwd = name[1].split('=')[1]     #get password on POST request
                 if (user == 'admin' and pwd == 'admin'):    #check if username and password are correct?
-                    header = 'HTTP/1.1 301 Moved Permanently\nLocation: http://127.0.0.1:8082/info.html\n'  #redirect to info.html
+                    header = 'HTTP/1.1 302 Found\nLocation: http://127.0.0.1:8082/info.html\n'  #redirect to info.html
                     myfile = os.path.join(dirname, 'info.html')
                 else:
-                    header = 'HTTP/1.1 301 Moved Permanently\nLocation: http://127.0.0.1:8082/404.html\n'   #redirect to 404.html
+                    header = 'HHTTP/1.1 404 Not Found\n'   #redirect to 404.html
                     myfile = os.path.join(dirname,'404.html')
         
         file = open(myfile, 'rb')  # open file , r => read , b => byte format
@@ -59,7 +59,7 @@ while True:
         header += 'Content-Type: ' + str(mimetype) + '\n\n'
 
     except Exception as e:
-        header = 'HTTP/1.1 301 Moved Permanently\nLocation: http://127.0.0.1:8082/404.html\n'   #handle exception: redirect to 404.html
+        header = 'HTTP/1.1 404 Not Found\n'   #handle exception: redirect to 404.html
         myfile = os.path.join(dirname,'404.html')
         file = open(myfile, 'rb')  # open file , r => read , b => byte format
         response = file.read()
