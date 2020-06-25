@@ -26,7 +26,7 @@ while True:
         if (method == "GET"):       #when the method is GET
             if (myfile == ''):      #if the address have no request file
                 myfile = os.path.join(dirname, 'index.html')  #Load index.html file as default
-                header = 'HTTP/1.1 301 Moved Permanently\nLocation: http://127.0.0.1:8082/index.html\n' #send header to redirect to index.html
+                header = 'HTTP/1.1 200 OK\n'
             else:
                 myfile = os.path.join(dirname, myfile)
                 header = 'HTTP/1.1 200 OK\n'
@@ -40,9 +40,11 @@ while True:
                     header = 'HTTP/1.1 302 Found\nLocation: http://127.0.0.1:8082/info.html\n'  #redirect to info.html
                     myfile = os.path.join(dirname, 'info.html')
                 else:
-                    header = 'HHTTP/1.1 404 Not Found\n'   #redirect to 404.html
+                    header = 'HTTP/1.1 404 Not Found\n'   #redirect to 404.html
                     myfile = os.path.join(dirname,'404.html')
-        
+            else:
+                myfile = os.path.join(dirname, myfile)
+                header = 'HTTP/1.1 200 OK\n'
         file = open(myfile, 'rb')  # open file , r => read , b => byte format
         response = file.read()
         file.close()
