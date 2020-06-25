@@ -22,14 +22,14 @@ while True:
         requesting_file = string_list[1]
         myfile = requesting_file.split('?')[0]  # After the "?" symbol not relevent here
         myfile = myfile.lstrip('/') #Delete the '/' symbol
-        
+
+        header = 'HTTP/1.1 200 OK\n'
         if (method == "GET"):       #when the method is GET
             if (myfile == ''):      #if the address have no request file
                 myfile = os.path.join(dirname, 'index.html')  #Load index.html file as default
-                header = 'HTTP/1.1 200 OK\n'
+                header = 'HTTP/1.1 301 Moved Permanently\nLocation: http://127.0.0.1:8082/index.html\n' #send header to redirect to index.html
             else:
                 myfile = os.path.join(dirname, myfile)
-                header = 'HTTP/1.1 200 OK\n'
         elif (method == "POST"):    #when the method is POST
             if (request.find("uname") > 0):     #find uname on POST request
                 x = request.split("uname=")
@@ -44,7 +44,7 @@ while True:
                     myfile = os.path.join(dirname,'404.html')
             else:
                 myfile = os.path.join(dirname, myfile)
-                header = 'HTTP/1.1 200 OK\n'
+
         file = open(myfile, 'rb')  # open file , r => read , b => byte format
         response = file.read()
         file.close()
