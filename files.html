@@ -32,6 +32,10 @@
             table thead th:nth-child(3){
                 width: 20%;
             }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
         </style>
     </head>
     
@@ -44,7 +48,7 @@
        <th>Name</th>
        <th>Last Modified</th>
        <th>Size</th>
-       <th>Description</th>
+       <th>Preview</th>
      </tr>
    </thead>
    <tbody>
@@ -52,19 +56,19 @@
        <td><a href="avatar.png" download="avatar.png"> avatar.png </a></td>
        <td>3/12/2020  9:47 AM </td>
        <td>8229 bytes </td>
-       <td>This pic is awesome </td>
+       <td><img src="avatar.png" width="200" height="200"> </td>
      </tr>
      <tr>
        <td><a href="img_avatar2.png" download="avatar.png">img_avatar2.png</a></td>
        <td>3/12/2020  9:49 AM </td>
        <td>8314 bytes </td>
-       <td>This pic is awesome too </td>
+       <td><img src="img_avatar2.png" width="200" height="200"> </td>
      </tr>
      <tr>
      <td><a href="avatar.png" download="avatar.png"> avatar.png </a></td>
      <td>3/12/2020  9:50 AM </td>
      <td>8229 bytes </td>
-     <td>This pic is awesome three </td>
+     <td><img src="avatar.png" width="200" height="200"> </td>
      </tr>
    </tbody>
   </table>
